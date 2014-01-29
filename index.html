@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+		<head>
+			<title>API Mashup</title>
+			<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+		</head>
+
+			<div id="container">
+				<h1>API Mashup</h1>
+				<div id="coverArt"></div>
+				<div id="artistInfo"></div>
+
+					<script type="text/javascript">
+						var artist = "ludovico%20einaudi";
+						var artistImg = "";
+
+						function artistFind(artist) {
+							$.getJSON('http://ws.audioscrobbler.com/2.0/?method=artist.getinfo&artist=' + artist + '&limit=1&api_key=7d84711eecbf239d4155d322825c2ddb&format=json', 
+								function(json) {												
+									artistImg = json.artist.image[3]['#text'];
+
+									$('#coverArt').html('<img src="'+ artistImg +'" alt="">');
+									$('#artistInfo').html('<p>' + json.artist.bio.summary + '</p>');
+							});
+						}
+/*
+						$.ajax({
+							url: 'http://ws.audioscrobbler.com/2.0/',
+							type: 'GET',
+							dataType: 'jsonp', 
+							data: 'method=artist.getinfo&artist=' + artist +'&api_key=7d84711eecbf239d4155d322825c2ddb&format=json',
+							success:function(art) {
+								console.log(art.name);
+							}
+						})
+*/
+						
+					</script>
+			</div>
+</html>
